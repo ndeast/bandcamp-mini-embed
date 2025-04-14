@@ -3,9 +3,9 @@
   import pauseIcon from "./icons/pause.svg";
   import previousIcon from "./icons/previous.svg";
   import nextIcon from "./icons/next.svg";
+  import bandcampLogoColor from "./icons/bandcamp-logotype-color.png";
 
   let {
-    artwork,
     album,
     albumUrl,
     tracks,
@@ -18,6 +18,7 @@
     previousTrack,
     nextTrack,
   } = $props();
+
 
   function toggle() {
     if (paused) {
@@ -44,21 +45,22 @@
 </script>
 
 <div class="player">
-  <div class="artwork">
-    <!-- Duplicates the play button's functionality, just useful for mobile -->
-    <!-- svelte-ignore a11y_click_events_have_key_events -->
-    <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-    <img onclick={toggle} src={artwork} alt="Cover artwork for {album}" />
-  </div>
   <div class="info">
-    <p>
-      <a href={albumUrl}>
-        {@html tracks[currentTrack].title}
-      </a>
-    </p>
-    <p>
-      {@html tracks[currentTrack].artist}
-    </p>
+    <div class="title-and-links">
+      <p>
+        {@html tracks[currentTrack].artist}
+      </p>
+      <div class="header-links">
+        <a href={`${albumUrl}&action=buy`}>buy</a>
+        &nbsp;
+        <a href={`${albumUrl}&action=share`}>share</a>
+        <a class="logo" href={albumUrl}>
+          <picture>
+            <img src={bandcampLogoColor} alt="Bandcamp logo" />
+          </picture>
+        </a>
+      </div>
+    </div>
     <p>{@html album}</p>
     <div class="controls">
       <button
@@ -95,6 +97,37 @@
 </div>
 
 <style>
+  .title-and-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 8px 0 0;
+    overflow: hidden;
+  }
+  .title-and-links > p {
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+  }
+  .header-links {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    min-width: fit-content;
+  }
+  .header-links > *:first-child {
+    margin-right: 8px;
+  }
+  .header-links > .logo {
+    line-height: 0;
+    margin-left: 8px;
+  }
+  .header-links > .logo > picture > img {
+    height: 20px;
+    width: auto;
+  }
   button {
     cursor: pointer;
     opacity: 0.8;
@@ -156,13 +189,4 @@
     cursor: grabbing;
   }
 
-  .artwork {
-    cursor: pointer;
-    height: 120px;
-    width: 120px;
-    min-width: 80px;
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
-  }
 </style>

@@ -1,7 +1,6 @@
 <script>
   // TODO: Remove usage of run suggested by Svelte 5 migration
   import { run } from "svelte/legacy";
-  import Links from "./Links.svelte";
   import Tracklist from "./Tracklist.svelte";
   import Player from "./Player.svelte";
 
@@ -134,7 +133,6 @@
       {nextTrack}
     />
     <Tracklist {tracks} {currentTrack} {play} />
-    <Links {albumUrl} />
   {:catch _}
     {#if fallbackText && fallbackUrl}
       <p style="margin: 16px;"><a href={fallbackUrl}>{fallbackText}</a></p>
@@ -151,7 +149,7 @@
     all: revert;
     font-family: sans-serif;
     width: 100%;
-    max-width: 480px;
+    max-width: 800px;
     box-sizing: border-box;
     min-height: 210px; /* 120 + 40 + 48 + 2 (border) */
     border: 1px solid #bbb;

@@ -1,6 +1,5 @@
 <script>
   import bandcampLogoColor from "./icons/bandcamp-logotype-color.png";
-  import bandcampLogoWhite from "./icons/bandcamp-logotype-white.png";
 
   let { albumUrl } = $props();
 </script>
@@ -11,7 +10,6 @@
   <a href={`${albumUrl}&action=share`}>share</a>
   <a class="logo" href={albumUrl}>
     <picture>
-      <source srcset={bandcampLogoWhite} media="(prefers-color-scheme: dark)" />
       <img src={bandcampLogoColor} alt="Bandcamp logo" />
     </picture>
   </a>
@@ -19,10 +17,10 @@
 
 <style>
   .links {
-    height: 48px;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    height: auto;
+    min-width: fit-content;
   }
 
   .links > *:first-child {
@@ -31,10 +29,11 @@
 
   .links > .logo {
     line-height: 0;
+    margin-left: 8px;
   }
 
   .links > .logo > picture > img {
-    height: 32px;
-    width: 110px;
+    height: 24px;
+    width: auto;
   }
 </style>
