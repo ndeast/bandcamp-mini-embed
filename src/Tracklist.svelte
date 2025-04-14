@@ -10,6 +10,13 @@
   }
 
   let artist = $derived(tracks[currentTrack].artist);
+  
+  // Safely decode HTML entities without using @html directive
+  function decodeHtmlEntities(text) {
+    const textarea = document.createElement('textarea');
+    textarea.innerHTML = text;
+    return textarea.value;
+  }
 </script>
 
 <div class="tracklist">
@@ -30,15 +37,20 @@
           }
         }}
       >
-        <span>
-          {Math.floor(track.duration / 60)
-            .toString()
-            .padStart(2, " ")}:{Math.floor(track.duration % 60)
-            .toString()
-            .padStart(2, "0")}
-        </span>
-        {@html "  " + track.title}
-        {#if track.artist !== artist}– {track.artist}{/if}
+        <div class="track-row">
+          <div class="track-info">
+            <span class="track-number">{i + 1}.</span>
+            <span class="track-title">{decodeHtmlEntities(track.title)}</span>
+            {#if track.artist !== artist}<span class="track-artist">– {decodeHtmlEntities(track.artist)}</span>{/if}
+          </div>
+          <span class="track-duration">
+            {Math.floor(track.duration / 60)
+              .toString()
+              .padStart(2, " ")}:{Math.floor(track.duration % 60)
+              .toString()
+              .padStart(2, "0")}
+          </span>
+        </div>
       </button>
     {/each}
   </div>
@@ -56,6 +68,7 @@
     margin: 0;
     padding: 8px 0;
   }
+  
   .tracks > * {
     display: block;
     width: 100%;
@@ -67,18 +80,48 @@
     padding: 10px 8px;
     border: 0;
     border-bottom: 1px solid #bbb;
-    white-space: pre;
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  
+  .track-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    white-space: nowrap;
+    width: 100%;
+  }
+  
+  .track-info {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .track-number {
+    font-family: sans-serif;
+    margin-right: 4px;
+    margin-left: 5px;
+  }
+  
+  .track-title {
+    margin-right: 4px;
+  }
+  
+  .track-duration {
+    font-family: monospace;
+    margin-left: auto;
+    flex-shrink: 0;
+    margin-right: 5px;
+  }
+  
   .tracks > .now-playing {
     font-weight: 700;
   }
+  
   .tracks > .unstreamable {
     cursor: default;
     opacity: 0.5;
-  }
-  .tracks span {
-    font-family: monospace;
   }
 </style>
