@@ -144,12 +144,10 @@
     cursor: auto;
     opacity: 0.5;
   }
-
   .player {
     display: flex;
     height: 120px;
   }
-
   .info {
     flex: 1 1 0;
     min-width: 198px;
