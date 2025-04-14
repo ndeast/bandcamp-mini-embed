@@ -100,7 +100,6 @@
   }
   
   .track-number {
-    font-family: sans-serif;
     margin-right: 4px;
     margin-left: 5px;
   }
@@ -110,13 +109,17 @@
   }
   
   .track-duration {
-    font-family: monospace;
     margin-left: auto;
     flex-shrink: 0;
     margin-right: 5px;
   }
   
   .tracks > .now-playing {
+    font-weight: 700;
+  }
+  
+  .tracks > .now-playing .track-info,
+  .tracks > .now-playing .track-duration {
     font-weight: 700;
   }
   

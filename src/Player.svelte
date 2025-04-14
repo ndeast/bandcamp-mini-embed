@@ -157,15 +157,13 @@
     flex-direction: column;
     justify-content: space-between;
     overflow: hidden;
+    font-family: sans-serif;
   }
   .info p {
     margin: 0 8px 0 12px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-  .info > p:last-of-type {
-    font-style: italic;
   }
 
   .controls {
